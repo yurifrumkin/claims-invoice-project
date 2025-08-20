@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)",
+      "Bash(npm run test:*)",
+      "Bash(npm run build)",
+      "Read(src/**/*.js)",
+      "Read(src/**/*.ts)",
+      "Read(tests/**/*)",
+      "Edit(src/**/*)",
+      "Edit(tests/**/*)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(./secrets/**)",
+      "Bash(rm -rf *)"
+    ]
+  },
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
