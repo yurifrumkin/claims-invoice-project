@@ -22,4 +22,10 @@ app.post('/process-claim', (req, res) => {
     res.send('Processed');
 });
 
+// Issue 4: Another security problem for testing
+app.get('/admin', (req, res) => {
+    // No authentication check on admin endpoint
+    res.json({ sensitive: 'admin data' });
+});
+
 module.exports = app;
