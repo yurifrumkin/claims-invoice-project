@@ -15,7 +15,7 @@ jobs:
       - name: Claude Security Review
         uses: anthropics/claude-code-security-review@main
         with:
-          claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
+          anthropic_api_key: ${{ secrets.CLAUDE_API_KEY }}
           # Configure for financial/enterprise systems
           severity_threshold: "medium"
           include_patterns: "**/*.{js,ts,py,sql,java,go,rs,php,rb,cs}"
