@@ -290,3 +290,114 @@ This project demonstrates building enterprise-grade agent review systems using C
 - Database schema (v1.0) supports 100K claims/week processing
 - UI wireframes (v1.0) define user experience workflow
 - Enhanced agent collaboration patterns with built-in quality gates
+
+## Automated Security Scanning System (✅ IMPLEMENTED)
+
+### Overview
+**Enterprise-grade AI-powered security scanning** using Anthropic's Claude Code Security Review that automatically analyzes code changes and posts detailed security findings directly on GitHub pull requests.
+
+### Implementation Details
+**GitHub Actions Workflow**: `.github/workflows/security-review.yml`
+- **Configuration**: Official Anthropic recommended setup
+- **Trigger**: Runs automatically on every pull request
+- **Scanner**: `anthropics/claude-code-security-review@main`
+- **Code Access**: `actions/checkout@v4` for reliable repository access
+- **PR Integration**: `comment-pr: true` for explicit pull request commenting
+
+### Official Anthropic Configuration
+```yaml
+name: Security Review
+on:
+  pull_request:
+permissions:
+  pull-requests: write
+  contents: read
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-security-review@main
+        with:
+          comment-pr: true
+          claude-api-key: ${{ secrets.CLAUDE_API_KEY }}
+```
+
+### Vulnerability Detection Capabilities (Per Anthropic Documentation)
+**Comprehensive Security Analysis**:
+- **Injection Attacks**: SQL injection, command injection, LDAP injection
+- **Authentication & Authorization**: Flaws in access control and user verification
+- **Data Exposure**: Privacy risks and sensitive information disclosure
+- **Cryptographic Issues**: Weak encryption, improper key management
+- **Input Validation**: Missing or insufficient user input sanitization
+- **Business Logic Vulnerabilities**: Application-specific security flaws
+- **Configuration Security**: Infrastructure and deployment security issues
+- **Supply Chain Risks**: Dependency and third-party component vulnerabilities
+- **Code Execution**: Remote code execution and arbitrary code vulnerabilities
+- **Cross-Site Scripting (XSS)**: Web application injection vulnerabilities
+
+### Advanced AI Features
+**Claude-Powered Analysis**:
+- **Contextual Understanding**: Semantic code analysis beyond pattern matching
+- **False Positive Filtering**: Advanced AI reduces noise and improves accuracy
+- **Detailed Remediation**: Specific guidance with code examples for fixes
+- **Language-Agnostic**: Automatically detects and analyzes all programming languages
+- **Diff-Aware Scanning**: Only analyzes modified files for efficient processing
+
+### Integration with Agent Workflow
+**@security-reviewer-agent Integration**:
+- Automated security findings feed into manual security review process
+- Agent can analyze GitHub Action results: `gh pr view --comments`
+- Systematic security validation as part of agent collaboration framework
+- Independent verification supports SOX compliance separation of duties
+
+### Setup and Configuration
+**Required GitHub Secrets**: 
+- `CLAUDE_API_KEY`: Anthropic Claude API key from console.anthropic.com
+- Personal Access Token with `repo` and `workflow` scopes for git operations
+
+**Authentication Setup**:
+1. Create Claude API key at https://console.anthropic.com
+2. Add as `CLAUDE_API_KEY` in GitHub repository secrets
+3. Ensure Personal Access Token has workflow permissions
+
+### Security Scanning Commands
+**Manual Security Review**:
+```bash
+# View security scan results
+gh pr view --comments
+
+# Check security scan status  
+gh pr checks
+
+# View specific security findings
+gh pr view [PR_NUMBER] --comments | grep "Security"
+```
+
+### Benefits for Enterprise Financial Systems
+**Compliance Support**:
+- Automated security audit trail for SOX compliance
+- Mandatory security review for all code changes
+- Documented security findings with remediation guidance
+- Integration with existing agent-based quality gates
+
+**Risk Reduction**:
+- Prevents security vulnerabilities from reaching production
+- Catches financial data exposure risks early in development
+- Validates secure coding practices for high-volume processing (100K claims/week)
+- Maintains security standards across 300-client enterprise environment
+
+### Reusability Template
+**Copy to Any Project**: Use the official Anthropic configuration above
+**Scalability**: Automatically adapts to any project size and complexity
+**Team Integration**: Works seamlessly with existing development workflows
+**Learning Tool**: Provides security education through detailed AI explanations
+
+### Implementation History
+- **Initial Setup**: Created workflow with custom parameters and @v1 version
+- **Authentication**: Configured Personal Access Token with workflow permissions  
+- **Testing**: Validated with intentional security vulnerabilities in test files
+- **Optimization**: Updated to official Anthropic recommendations for best results
+- **Official Configuration**: Applied @main version with checkout@v4 and comment-pr: true
+
+**Result**: Production-ready automated security scanning following Anthropic's best practices, protecting all future development work with enterprise-grade AI security analysis
